@@ -65,6 +65,10 @@
             hardButton.UseVisualStyleBackColor = true;
             hardButton.Click += hardButton_Click;
             // 
+            // gameTimer
+            // 
+            gameTimer.Tick += gameTimer_Tick;
+            // 
             // breakout
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
