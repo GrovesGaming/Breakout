@@ -28,6 +28,8 @@
         public breakout()
         {
             InitializeComponent();
+
+          
         }
 
         private void easybutton_Click(object sender, EventArgs e)
@@ -37,8 +39,10 @@
             hardButton.Visible = false;
             easy = 1;
             buttonPressed = true;
-            Invalidate();
+            gameTimer.Enabled = true;
+            
             gameStart();
+            Invalidate();
 
 
         }
@@ -50,8 +54,11 @@
             midButton.Visible = false;
             mid = 1;
             buttonPressed = true;
-            Invalidate();
+            gameTimer.Enabled = true;
             gameStart();
+            Invalidate();
+
+            
 
         }
 
@@ -59,8 +66,10 @@
         {
             easybutton.Visible = false; hardButton.Visible = false; midButton.Visible = false;
             hard = 1;
-            gameStart();
+            
             buttonPressed = true;
+            gameTimer.Enabled = true;
+            gameStart();
             Invalidate();
         }
         private void gameStart()
@@ -123,16 +132,18 @@
             //move player  
             if (ADown == true && player.X > 0)
             {
-                player.Y -= playerSpeed;
+                player.X -= playerSpeed;
             }
 
-            if (DDown == true && player.X < this.Height - player.Height)
+            if (DDown == true && player.X < this.Width - player.Width)
             {
-                player.Y += playerSpeed;
+                player.X += playerSpeed;
             }
-            Invalidate();
             ball.X += ballXSpeed;
             ball.Y += ballYSpeed;
+           
+            Invalidate();
+            
 
         }
     }
