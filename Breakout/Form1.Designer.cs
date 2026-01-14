@@ -33,6 +33,7 @@
             midButton = new Button();
             hardButton = new Button();
             gameTimer = new System.Windows.Forms.Timer(components);
+            label1 = new Label();
             SuspendLayout();
             // 
             // easybutton
@@ -69,11 +70,21 @@
             // 
             gameTimer.Tick += gameTimer_Tick;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(392, 79);
+            label1.Name = "label1";
+            label1.Size = new Size(38, 15);
+            label1.TabIndex = 3;
+            label1.Text = "label1";
+            // 
             // breakout
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
             Controls.Add(hardButton);
             Controls.Add(midButton);
             Controls.Add(easybutton);
@@ -84,6 +95,7 @@
             KeyDown += breakout_KeyDown;
             KeyUp += breakout_KeyUp;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -92,5 +104,6 @@
         private Button midButton;
         private Button hardButton;
         private System.Windows.Forms.Timer gameTimer;
+        private Label label1;
     }
 }

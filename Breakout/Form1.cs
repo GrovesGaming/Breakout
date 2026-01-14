@@ -28,8 +28,9 @@
         public breakout()
         {
             InitializeComponent();
+            KeyPreview = true;
 
-          
+
         }
 
         private void easybutton_Click(object sender, EventArgs e)
@@ -106,6 +107,7 @@
                     break;
                 case Keys.A:
                     ADown = true;
+                    
                     break;
 
 
@@ -130,7 +132,8 @@
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             //move player  
-            if (ADown == true && player.X > 0)
+            label1.Text = ADown.ToString(); ;
+           if (ADown == true && player.X > 0)
             {
                 player.X -= playerSpeed;
             }
@@ -138,10 +141,27 @@
             if (DDown == true && player.X < this.Width - player.Width)
             {
                 player.X += playerSpeed;
-            }
+           }
             ball.X += ballXSpeed;
             ball.Y += ballYSpeed;
-           
+            //check if ball hit top or bottom wall and change direction if it does 
+            if (ball.Y < 100 || ball.Y > this.Height - ball.Height)
+            {
+                ballYSpeed *= -1; 
+            }
+            if (ball.X < 200 || ball.X > 600 - ball.Width) { ballXSpeed *= -1; }
+            
+            if (player.IntersectsWith(ball))
+            {
+                ballXSpeed *= -1;
+                ball.Y = player.Y - ball.Height;
+            }
+            
+
+
+
+
+
             Invalidate();
             
 
