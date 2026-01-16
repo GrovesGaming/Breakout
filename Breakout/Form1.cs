@@ -13,8 +13,9 @@
         Rectangle ball = new Rectangle(295, 195, 10, 10);
         Rectangle square1 = new Rectangle(295, 100, 50, 20);
         Rectangle square2 = new Rectangle(345, 100, 50, 20);
-        Rectangle square3 = new Rectangle(285, 250, 10, 10);
-        Rectangle square4 = new Rectangle(275, 250, 10, 10);
+        Rectangle square3 = new Rectangle(395, 100, 50, 10);
+        Rectangle square4 = new Rectangle(445, 100, 50, 10);
+        Rectangle square5 = new Rectangle(495, 100, 50, 20);
         int playerSpeed = 7;
         int ballXSpeed = 0;
         int ballYSpeed = 0;
@@ -93,6 +94,10 @@
                 g.FillRectangle(blueBrush, player);
                 g.FillRectangle(redBrush, square1);
                 g.FillRectangle(yellowBrush, square2);
+                g.FillRectangle(redBrush, square3);
+                g.FillRectangle(yellowBrush, square4);
+                g.FillRectangle(redBrush, square5);
+                
                
             }
 
@@ -133,7 +138,7 @@
         {
             //move player  
             label1.Text = ADown.ToString(); ;
-           if (ADown == true && player.X > 0)
+            if (ADown == true && player.X > 0)
             {
                 player.X -= playerSpeed;
             }
@@ -141,22 +146,31 @@
             if (DDown == true && player.X < this.Width - player.Width)
             {
                 player.X += playerSpeed;
-           }
+            }
             ball.X += ballXSpeed;
             ball.Y += ballYSpeed;
             //check if ball hit top or bottom wall and change direction if it does 
             if (ball.Y < 100 || ball.Y > this.Height - ball.Height)
             {
-                ballYSpeed *= -1; 
+                ballYSpeed *= -1;
             }
             if (ball.X < 200 || ball.X > 600 - ball.Width) { ballXSpeed *= -1; }
-            
-            if (player.IntersectsWith(ball))
+
+            if (ball.IntersectsWith(player))
             {
-                ballXSpeed *= -1;
+                ballYSpeed *= -1;
                 ball.Y = player.Y - ball.Height;
+
             }
+            if (ball.IntersectsWith(square1))
+                {
+                ballYSpeed *= -1;
+                
+            }
+            if (ball.IntersectsWith(square2)) { }
             
+
+
 
 
 
