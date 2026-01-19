@@ -5,7 +5,13 @@
         bool buttonPressed = false;
         bool DDown = false;
         bool ADown = false;
-
+        bool square1Vis = true;
+        bool square2Vis = true;
+        bool square3Vis = true;
+        bool square4Vis = true;
+        bool square5Vis = true;
+        bool square6Vis = true;
+        int lives = 3;
         int easy = 0;
         int mid = 0;
         int hard = 0;
@@ -14,8 +20,9 @@
         Rectangle square1 = new Rectangle(295, 100, 50, 20);
         Rectangle square2 = new Rectangle(345, 100, 50, 20);
         Rectangle square3 = new Rectangle(395, 100, 50, 10);
-        Rectangle square4 = new Rectangle(445, 100, 50, 10);
-        Rectangle square5 = new Rectangle(495, 100, 50, 20);
+        Rectangle square4 = new Rectangle(395, 120, 50, 10);
+        Rectangle square5 = new Rectangle(345, 120, 50, 20);
+        Rectangle square6 = new Rectangle(295,120, 50, 20);
         int playerSpeed = 7;
         int ballXSpeed = 0;
         int ballYSpeed = 0;
@@ -92,11 +99,17 @@
                 g.FillRectangle(whiteBrush, 200, 100, 400, 400);
                 g.FillRectangle(blueBrush, ball);
                 g.FillRectangle(blueBrush, player);
-                g.FillRectangle(redBrush, square1);
-                g.FillRectangle(yellowBrush, square2);
-                g.FillRectangle(redBrush, square3);
-                g.FillRectangle(yellowBrush, square4);
-                g.FillRectangle(redBrush, square5);
+                if (square1Vis == true)
+                { g.FillRectangle(redBrush, square1); }
+                if (square2Vis == true)
+                { g.FillRectangle(yellowBrush, square2); }
+                if (square3Vis == true)
+                { g.FillRectangle(redBrush, square3); }
+                if (square4Vis == true)
+                { g.FillRectangle(yellowBrush, square4); }
+                if (square5Vis == true) 
+                    { g.FillRectangle(redBrush, square5); }
+                    if (square6Vis == true) { g.FillRectangle(yellowBrush, square6); }
                 
                
             }
@@ -155,6 +168,10 @@
                 ballYSpeed *= -1;
             }
             if (ball.X < 200 || ball.X > 600 - ball.Width) { ballXSpeed *= -1; }
+            if (ball.X == 200)
+            {
+                lives--;
+            }
 
             if (ball.IntersectsWith(player))
             {
@@ -163,11 +180,35 @@
 
             }
             if (ball.IntersectsWith(square1))
-                {
+            {
                 ballYSpeed *= -1;
+                square1Vis = false; 
                 
             }
-            if (ball.IntersectsWith(square2)) { }
+            if (ball.IntersectsWith(square2)) {
+                ballYSpeed *= -1;
+                square2Vis = false;
+            }
+            if (ball.IntersectsWith(square3))
+            {
+                ballYSpeed *= -1;
+                square3Vis = false;
+            }
+            if (ball.IntersectsWith(square4))
+            {
+                ballYSpeed *= -1;
+                square4Vis = false;
+            }
+            if (ball.IntersectsWith(square5))
+            {
+                ballYSpeed *= -1;  
+                square5Vis = false;
+            }
+            if (ball.IntersectsWith(square6))
+            {
+                ballYSpeed *= -1;
+                square6Vis = false;
+            }
             
 
 
