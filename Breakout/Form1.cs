@@ -1,4 +1,6 @@
-﻿namespace Breakout
+﻿using System.Data.SqlTypes;
+
+namespace Breakout
 {
     public partial class breakout : Form
     {
@@ -11,18 +13,32 @@
         bool square4Vis = true;
         bool square5Vis = true;
         bool square6Vis = true;
+        bool square7Vis = true;
+        bool square8Vis = true;
+        bool square9Vis = true;
+        bool square10Vis = true;
+        bool square11Vis = true;
+        bool square12Vis = true;
+
         int lives = 3;
+        int squares = 12;
         int easy = 0;
         int mid = 0;
         int hard = 0;
         Rectangle player = new Rectangle(350, 400, 60, 10);
         Rectangle ball = new Rectangle(295, 195, 10, 10);
-        Rectangle square1 = new Rectangle(295, 100, 50, 20);
-        Rectangle square2 = new Rectangle(345, 100, 50, 20);
-        Rectangle square3 = new Rectangle(395, 100, 50, 10);
-        Rectangle square4 = new Rectangle(395, 120, 50, 10);
-        Rectangle square5 = new Rectangle(345, 120, 50, 20);
-        Rectangle square6 = new Rectangle(295,120, 50, 20);
+        Rectangle square1 = new Rectangle(200, 100, 100, 20);
+        Rectangle square2 = new Rectangle(300, 100, 100, 20);
+        Rectangle square3 = new Rectangle(400, 100, 100, 10);
+        Rectangle square4 = new Rectangle(200, 120, 100, 10);
+        Rectangle square5 = new Rectangle(300, 120, 100, 20);
+        Rectangle square6 = new Rectangle(400, 120, 100, 20);
+        Rectangle square7 = new Rectangle(500, 100, 100, 20);
+        Rectangle square8 = new Rectangle(500, 120, 100, 20);
+        Rectangle square9 = new Rectangle(200, 140, 100, 20);
+        Rectangle square10 = new Rectangle (300, 140, 100,20);
+        Rectangle square11 = new Rectangle(400, 140, 100, 20);
+        Rectangle square12 = new Rectangle(500, 140, 100, 20);
         int playerSpeed = 7;
         int ballXSpeed = 0;
         int ballYSpeed = 0;
@@ -49,7 +65,7 @@
             easy = 1;
             buttonPressed = true;
             gameTimer.Enabled = true;
-            
+
             gameStart();
             Invalidate();
 
@@ -67,7 +83,7 @@
             gameStart();
             Invalidate();
 
-            
+
 
         }
 
@@ -75,7 +91,7 @@
         {
             easybutton.Visible = false; hardButton.Visible = false; midButton.Visible = false;
             hard = 1;
-            
+
             buttonPressed = true;
             gameTimer.Enabled = true;
             gameStart();
@@ -104,14 +120,21 @@
                 if (square2Vis == true)
                 { g.FillRectangle(yellowBrush, square2); }
                 if (square3Vis == true)
-                { g.FillRectangle(redBrush, square3); }
+                { g.FillRectangle(blueBrush, square3); }
                 if (square4Vis == true)
                 { g.FillRectangle(yellowBrush, square4); }
-                if (square5Vis == true) 
-                    { g.FillRectangle(redBrush, square5); }
-                    if (square6Vis == true) { g.FillRectangle(yellowBrush, square6); }
+                if (square5Vis == true)
+                { g.FillRectangle(redBrush, square5); }
+                if (square6Vis == true) { g.FillRectangle(blueBrush, square6); }
+                if (square7Vis == true) { g.FillRectangle(redBrush, square7); }
+                if (square8Vis == true) { g.FillRectangle(yellowBrush, square8); }
+                if (square9Vis == true) { g.FillRectangle(blueBrush, square9); }
+                if (square10Vis == true) { g.FillRectangle(redBrush, square10); }
+                if (square11Vis == true) { g.FillRectangle(yellowBrush, square11); }
+                if (square12Vis == true) { g.FillRectangle(blueBrush, square12); }
                 
-               
+
+
             }
 
         }
@@ -125,7 +148,7 @@
                     break;
                 case Keys.A:
                     ADown = true;
-                    
+
                     break;
 
 
@@ -150,7 +173,7 @@
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             //move player  
-            label1.Text = ADown.ToString(); ;
+            label1.Text = lives.ToString();
             if (ADown == true && player.X > 0)
             {
                 player.X -= playerSpeed;
@@ -168,9 +191,10 @@
                 ballYSpeed *= -1;
             }
             if (ball.X < 200 || ball.X > 600 - ball.Width) { ballXSpeed *= -1; }
-            if (ball.X == 200)
+            if (ball.Y > this.Height - ball.Height)
             {
                 lives--;
+                ball.Y = 440;
             }
 
             if (ball.IntersectsWith(player))
@@ -182,34 +206,77 @@
             if (ball.IntersectsWith(square1))
             {
                 ballYSpeed *= -1;
-                square1Vis = false; 
-                
+                square1Vis = false;
+                squares--;
+
             }
             if (ball.IntersectsWith(square2)) {
                 ballYSpeed *= -1;
                 square2Vis = false;
+                squares--;
             }
             if (ball.IntersectsWith(square3))
             {
                 ballYSpeed *= -1;
                 square3Vis = false;
+                squares--;
             }
             if (ball.IntersectsWith(square4))
             {
                 ballYSpeed *= -1;
                 square4Vis = false;
+                squares--;
             }
             if (ball.IntersectsWith(square5))
             {
-                ballYSpeed *= -1;  
+                ballYSpeed *= -1;
                 square5Vis = false;
+                squares--;
             }
             if (ball.IntersectsWith(square6))
             {
                 ballYSpeed *= -1;
                 square6Vis = false;
+                squares--;
             }
-            
+            if (ball.IntersectsWith(square7))
+            {
+                ballYSpeed *= -1;
+                square7Vis = false;
+                squares--;
+            }
+            if (ball.IntersectsWith(square8))
+            { ballYSpeed *= -1;
+            square8Vis = false;
+                squares--;
+            }
+            if (ball.IntersectsWith(square9))
+            {  ballYSpeed *= -1;
+                square9Vis = false;
+                squares--;
+            }
+            if (ball.IntersectsWith(square10))
+            {  ballYSpeed *= -1
+                    ; square10Vis = false;
+                squares--;
+            }
+            if (ball.IntersectsWith(square11))
+                { ballYSpeed *= -1; square11Vis = false; }
+            if (ball.IntersectsWith(square12))
+                { ballYSpeed *= -1; ; square12Vis = false;
+                squares--;
+            }
+    
+
+            if(lives == 0)
+            {
+                gameTimer.Enabled = false;
+                label1.Text = "You lose";
+            }
+            if (squares == 0)
+            {
+                gameTimer.Enabled = false; label1.Text = "You Win";
+            }
 
 
 
