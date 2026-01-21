@@ -34,6 +34,11 @@
             hardButton = new Button();
             gameTimer = new System.Windows.Forms.Timer(components);
             label1 = new Label();
+            scoreLabel = new Label();
+            outputlabel = new Label();
+            inputBox = new TextBox();
+            timerlabel = new Label();
+            scoreTimer = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
             // easybutton
@@ -73,17 +78,58 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(392, 79);
+            label1.Location = new Point(291, 79);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
             label1.TabIndex = 3;
             label1.Text = "label1";
+            // 
+            // scoreLabel
+            // 
+            scoreLabel.AutoSize = true;
+            scoreLabel.Location = new Point(595, 62);
+            scoreLabel.Name = "scoreLabel";
+            scoreLabel.Size = new Size(38, 15);
+            scoreLabel.TabIndex = 4;
+            scoreLabel.Text = "label2";
+            scoreLabel.Visible = false;
+            // 
+            // outputlabel
+            // 
+            outputlabel.AutoSize = true;
+            outputlabel.Location = new Point(84, 41);
+            outputlabel.Name = "outputlabel";
+            outputlabel.Size = new Size(38, 15);
+            outputlabel.TabIndex = 5;
+            outputlabel.Text = "label2";
+            outputlabel.Visible = false;
+            // 
+            // inputBox
+            // 
+            inputBox.Location = new Point(84, 71);
+            inputBox.Name = "inputBox";
+            inputBox.Size = new Size(158, 23);
+            inputBox.TabIndex = 6;
+            inputBox.Visible = false;
+            // 
+            // timerlabel
+            // 
+            timerlabel.AutoSize = true;
+            timerlabel.Location = new Point(466, 77);
+            timerlabel.Name = "timerlabel";
+            timerlabel.Size = new Size(38, 15);
+            timerlabel.TabIndex = 7;
+            timerlabel.Text = "label2";
             // 
             // breakout
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(timerlabel);
+            Controls.Add(inputBox);
+            Controls.Add(outputlabel);
+            Controls.Add(scoreLabel);
             Controls.Add(label1);
             Controls.Add(hardButton);
             Controls.Add(midButton);
@@ -105,5 +151,10 @@
         private Button hardButton;
         private System.Windows.Forms.Timer gameTimer;
         private Label label1;
+        private Label scoreLabel;
+        private Label outputlabel;
+        private TextBox inputBox;
+        private Label timerlabel;
+        private System.Windows.Forms.Timer scoreTimer;
     }
 }
