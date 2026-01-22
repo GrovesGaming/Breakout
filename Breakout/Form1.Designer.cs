@@ -39,6 +39,8 @@
             inputBox = new TextBox();
             timerlabel = new Label();
             scoreTimer = new System.Windows.Forms.Timer(components);
+            enterButton = new Button();
+            addButton = new Button();
             SuspendLayout();
             // 
             // easybutton
@@ -97,7 +99,7 @@
             // outputlabel
             // 
             outputlabel.AutoSize = true;
-            outputlabel.Location = new Point(84, 41);
+            outputlabel.Location = new Point(12, 40);
             outputlabel.Name = "outputlabel";
             outputlabel.Size = new Size(38, 15);
             outputlabel.TabIndex = 5;
@@ -106,7 +108,7 @@
             // 
             // inputBox
             // 
-            inputBox.Location = new Point(84, 71);
+            inputBox.Location = new Point(12, 74);
             inputBox.Name = "inputBox";
             inputBox.Size = new Size(158, 23);
             inputBox.TabIndex = 6;
@@ -121,11 +123,35 @@
             timerlabel.TabIndex = 7;
             timerlabel.Text = "label2";
             // 
+            // enterButton
+            // 
+            enterButton.Location = new Point(12, 126);
+            enterButton.Name = "enterButton";
+            enterButton.Size = new Size(134, 31);
+            enterButton.TabIndex = 8;
+            enterButton.Text = "ENTER";
+            enterButton.UseVisualStyleBackColor = true;
+            enterButton.Visible = false;
+            enterButton.Click += enterButton_Click;
+            // 
+            // addButton
+            // 
+            addButton.Location = new Point(12, 179);
+            addButton.Name = "addButton";
+            addButton.Size = new Size(134, 30);
+            addButton.TabIndex = 9;
+            addButton.Text = "Add to list";
+            addButton.UseVisualStyleBackColor = true;
+            addButton.Visible = false;
+            addButton.Click += addButton_Click;
+            // 
             // breakout
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(addButton);
+            Controls.Add(enterButton);
             Controls.Add(timerlabel);
             Controls.Add(inputBox);
             Controls.Add(outputlabel);
@@ -137,6 +163,7 @@
             DoubleBuffered = true;
             Name = "breakout";
             Text = "Breakout";
+            Load += breakout_Load;
             Paint += breakout_Paint;
             KeyDown += breakout_KeyDown;
             KeyUp += breakout_KeyUp;
@@ -156,5 +183,7 @@
         private TextBox inputBox;
         private Label timerlabel;
         private System.Windows.Forms.Timer scoreTimer;
+        private Button enterButton;
+        private Button addButton;
     }
 }

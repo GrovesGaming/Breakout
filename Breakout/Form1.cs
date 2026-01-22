@@ -1,6 +1,9 @@
-﻿using System.Data.SqlTypes;
+﻿using System;
+using System.Data.SqlTypes;
 
 using System.Diagnostics;
+using System.IO;
+using System.Numerics;
 
 namespace Breakout
 {
@@ -40,7 +43,7 @@ namespace Breakout
         Rectangle square7 = new Rectangle(500, 100, 100, 20);
         Rectangle square8 = new Rectangle(500, 120, 100, 20);
         Rectangle square9 = new Rectangle(200, 140, 100, 20);
-        Rectangle square10 = new Rectangle (300, 140, 100,20);
+        Rectangle square10 = new Rectangle(300, 140, 100, 20);
         Rectangle square11 = new Rectangle(400, 140, 100, 20);
         Rectangle square12 = new Rectangle(500, 140, 100, 20);
         int playerSpeed = 9;
@@ -50,6 +53,12 @@ namespace Breakout
         Brush redBrush = new SolidBrush(Color.Red);
         Brush blueBrush = new SolidBrush(Color.Blue);
         Brush yellowBrush = new SolidBrush(Color.Yellow);
+        List<people> gamers = new List<people>
+        {
+            new people {playerName = "New Orleans is sinking", score = 17000},
+            new people {playerName = "LarsBurrito", score = 9000},
+            new people {playerName = "The Tragically hip", score = 90000}
+        };
 
 
 
@@ -59,6 +68,11 @@ namespace Breakout
             KeyPreview = true;
 
 
+        }
+        class people
+        {
+            public string playerName { get; set; }
+            public int score { get; set; }
         }
 
         private void easybutton_Click(object sender, EventArgs e)
@@ -105,11 +119,15 @@ namespace Breakout
             gameWatch.Start();
         }
         private void gameStart()
-        {timerlabel.Text= gameWatch.ElapsedMilliseconds + "";
+
+        {
+            timerlabel.Text = "Kermit";
+
+
             if (easy == 1) { ballXSpeed = 3; ballYSpeed = 3; }
             if (hard == 1) { ballXSpeed = 9; ballYSpeed = 9; }
             if (mid == 1) { ballXSpeed = 6; ballYSpeed = 6; }
-            
+
         }
 
 
@@ -140,7 +158,7 @@ namespace Breakout
                 if (square10Vis == true) { g.FillRectangle(redBrush, square10); }
                 if (square11Vis == true) { g.FillRectangle(yellowBrush, square11); }
                 if (square12Vis == true) { g.FillRectangle(blueBrush, square12); }
-                
+
 
 
             }
@@ -180,6 +198,7 @@ namespace Breakout
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            timerlabel.Text = gameWatch.ElapsedMilliseconds + "";
             //move player  
             label1.Text = lives.ToString();
             if (ADown == true && player.X > 0)
@@ -200,11 +219,11 @@ namespace Breakout
             }
             if (ball.X < 200 || ball.X > 600 - ball.Width) { ballXSpeed *= -1; }
             if (ball.Y > this.Height - ball.Height)
-                if (player.X < 200 || player.X >600 -player.Width) 
-            {
-                lives--;
-                ball.Y = 440;
-            }
+                if (player.X < 200 || player.X > 600 - player.Width)
+                {
+                    lives--;
+                    ball.Y = 440;
+                }
 
             if (ball.IntersectsWith(player))
             {
@@ -220,7 +239,8 @@ namespace Breakout
                 square1.Y = 600;
 
             }
-            if (ball.IntersectsWith(square2)) {
+            if (ball.IntersectsWith(square2))
+            {
                 ballYSpeed *= -1;
                 square2Vis = false;
                 squares--;
@@ -262,35 +282,40 @@ namespace Breakout
                 square7.Y = 600;
             }
             if (ball.IntersectsWith(square8))
-            { ballYSpeed *= -1;
-            square8Vis = false;
+            {
+                ballYSpeed *= -1;
+                square8Vis = false;
                 squares--;
                 square8.Y = 600;
             }
             if (ball.IntersectsWith(square9))
-            {  ballYSpeed *= -1;
+            {
+                ballYSpeed *= -1;
                 square9Vis = false;
                 squares--;
                 square9.Y = 600;
             }
             if (ball.IntersectsWith(square10))
-            {  ballYSpeed *= -1
+            {
+                ballYSpeed *= -1
                     ; square10Vis = false;
                 square10.Y = 600;
                 squares--;
             }
             if (ball.IntersectsWith(square11))
-                { ballYSpeed *= -1; square11Vis = false;
+            {
+                ballYSpeed *= -1; square11Vis = false;
                 square11.Y = 700;
             }
             if (ball.IntersectsWith(square12))
-                { ballYSpeed *= -1; ; square12Vis = false;
+            {
+                ballYSpeed *= -1; ; square12Vis = false;
                 squares--;
-                square12.Y=600;
+                square12.Y = 600;
             }
-    
 
-            if(lives == 0)
+
+            if (lives == 0)
             {
                 gameTimer.Enabled = false;
                 label1.Text = "You lose";
@@ -299,11 +324,14 @@ namespace Breakout
 
             if (squares == 0)
             {
-               gameWatch.Stop();
+                gameWatch.Stop();
                 gameTimer.Enabled = false; label1.Text = "You Win";
                 inputBox.Visible = true;
                 outputlabel.Visible = true;
                 outputlabel.Text = "Please Put in you name";
+                enterButton.Visible = true;
+                addButton.Visible = true;
+
             }
 
 
@@ -313,8 +341,51 @@ namespace Breakout
 
 
             Invalidate();
-            
 
+
+        }
+
+        private void enterButton_Click(object sender, EventArgs e)
+        {
+            string playe = inputBox.Text;
+            int time = int.Parse(gameWatch.ElapsedMilliseconds.ToString());
+
+            gamers.Add(new people { playerName = playe, score = time });
+            for (int i = 0; i < gamers.Count; i++)
+            {
+                scoreLabel.Text += gamers[i].playerName + " " + gamers[i].score + "      ";
+            }
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+
+
+            File.WriteAllText(fileshare, ""); // clear file first
+
+            using (StreamWriter writer = new StreamWriter(fileshare))
+
+            {
+                for (int i = 0; i < gamers.Count; i++)
+                {
+                    writer.WriteLine(gamers[i].playerName);
+                    writer.WriteLine(gamers[i].score);
+                }
+            }
+
+
+
+        }
+
+        private void breakout_Load(object sender, EventArgs e)
+        {
+            scoreLabel.Text = "";
+           scoreLabel.Visible = true;
+
+            for (int i = 0; i < gamers.Count; i++)
+            {
+                scoreLabel.Text += "\n" + gamers[i].playerName + " " + gamers[i].score + "      ";
+            }
         }
     }
 }
