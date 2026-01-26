@@ -379,12 +379,19 @@ namespace Breakout
 
         private void breakout_Load(object sender, EventArgs e)
         {
-            scoreLabel.Text = "";
-           scoreLabel.Visible = true;
-
-            for (int i = 0; i < gamers.Count; i++)
+            string[] lines = File.ReadAllLines(fileshare);
+            //read the file in, line by line into an array
+            string playerName;
+            int score;
+            for (int i = 0; i < lines.Length; i = i + 2)
             {
-                scoreLabel.Text += "\n" + gamers[i].playerName + " " + gamers[i].score + "      ";
+                playerName = lines[i];
+                //read the 'ith' line in and it will be the name
+
+                score= Convert.ToInt16(lines[i + 1]);
+                //the next line will be the grade
+                gamers.Add(new people {  playerName= playerName, score = score });
+                //make new students with the properties of name and grade as read in
             }
         }
     }
