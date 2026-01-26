@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Data.SqlTypes;
-
 using System.Diagnostics;
 using System.IO;
 using System.Numerics;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace Breakout
 {
@@ -201,15 +202,22 @@ namespace Breakout
             timerlabel.Text = gameWatch.ElapsedMilliseconds + "";
             //move player  
             label1.Text = lives.ToString();
-            if (ADown == true && player.X > 0)
+
+            // Clamp player movement to X range [200, 600]
+            int leftBound = 200;
+            int rightBound = 600; // player right edge must be <= 600
+            if (ADown == true && player.X > leftBound)
             {
-                player.X -= playerSpeed;
+                // prevent overshoot
+                player.X = Math.Max(leftBound, player.X - playerSpeed);
             }
 
-            if (DDown == true && player.X < this.Width - player.Width)
+            if (DDown == true && player.X < rightBound - player.Width)
             {
-                player.X += playerSpeed;
+                // prevent overshoot
+                player.X = Math.Min(rightBound - player.Width, player.X + playerSpeed);
             }
+
             ball.X += ballXSpeed;
             ball.Y += ballYSpeed;
             //check if ball hit top or bottom wall and change direction if it does 
@@ -333,12 +341,6 @@ namespace Breakout
                 addButton.Visible = true;
 
             }
-
-
-
-
-
-
 
             Invalidate();
 
